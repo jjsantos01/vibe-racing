@@ -91,7 +91,8 @@ function renderNotes(urls){
     const li = document.createElement('li');
     const a = document.createElement('a');
     a.href = '#';
-    a.textContent = url;
+    const name = displayName(url);
+    a.textContent = name;
     a.title = url;
     a.addEventListener('click', (e)=>{ e.preventDefault(); openNote(url); });
     const btn = document.createElement('button');
@@ -155,6 +156,12 @@ function basename(u){
   try { const p = new URL(u); const parts = p.pathname.split('/'); return parts[parts.length-1] || u; } catch { return u; }
 }
 
+function displayName(u){
+  const base = basename(u);
+  const noExt = base.endsWith('.md') ? base.slice(0, -3) : base;
+  return noExt;
+}
+
 async function fetchJson(url){
   const res = await fetch(url, { headers: { 'Accept':'application/json' } });
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -165,4 +172,3 @@ async function fetchText(url){
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   return res.text();
 }
-

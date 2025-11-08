@@ -48,8 +48,8 @@ body{
 .notes{ background:var(--panel); border:2px solid var(--text); box-shadow:4px 4px 0 var(--accent); padding:12px; }
 .notes h2{ margin:6px 0 10px; font-family:var(--mono); }
 .notes-list{ list-style:none; padding:0; margin:0; display:grid; gap:6px; }
-.notes-list li{ display:flex; justify-content:space-between; align-items:center; gap:8px; padding:8px; border:1.5px solid var(--text); background:#fff; box-shadow:2px 2px 0 #00000022; }
-.notes-list a{ color:#004; text-decoration:none; font-family:var(--mono); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:70%; }
+.notes-list li{ display:flex; justify-content:space-between; align-items:center; gap:8px; padding:8px; border:1.5px solid var(--text); background:#fff; box-shadow:2px 2px 0 #00000022; min-width:0; }
+.notes-list a{ color:#004; text-decoration:none; font-family:var(--mono); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; flex:1 1 auto; min-width:0; }
 .notes-list .open{ padding:4px 8px; border:1.5px solid var(--text); background:var(--ok); font-family:var(--mono); cursor:pointer; }
 
 .note-view{ background:var(--panel); border:2px solid var(--text); box-shadow:4px 4px 0 var(--accent-2); padding:0; min-height:420px; }
@@ -66,4 +66,3 @@ body{
   .layout{ grid-template-columns: 1fr; }
   .content{ grid-template-columns: 1fr; }
 }
-
