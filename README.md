@@ -36,9 +36,10 @@ Frontend
 --------
 
 - Disponible en `/web` (archivos en `web/`).
-- Configura la URL del API de cualquier dev de tres maneras:
-  - Query param: `?api=https://api.ejemplo.dev`
-  - Variable global antes de `app.js`: `window.DEV_NOTES_API = 'https://api.ejemplo.dev'`
+- El input acepta el endpoint completo de metadata. Puede tener cualquier nombre (no requiere terminar en `/metadata`).
+- Configuración del endpoint:
+  - Query param: `?meta=https://api.ejemplo.dev/mi-endpoint` (compat: `?api=`)
+  - Variable global antes de `app.js`: `window.DEV_NOTES_METADATA = 'https://api.ejemplo.dev/mi-endpoint'` (compat: `DEV_NOTES_API`)
   - Guardar desde la UI (se persiste en `localStorage`).
 
 Desplegar

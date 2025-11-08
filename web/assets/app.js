@@ -1,4 +1,4 @@
-import { resolveApiBase, saveApiBase } from './config.js';
+import { resolveMetaUrl, saveMetaUrl, deriveBaseFromMeta } from './config.js';
 
 const apiInput = document.getElementById('apiInput');
 const apiSave = document.getElementById('apiSave');
@@ -14,14 +14,14 @@ const noteTitleEl = document.getElementById('noteTitle');
 const noteContentEl = document.getElementById('noteContent');
 const openRawEl = document.getElementById('openRaw');
 
-let API_BASE = resolveApiBase();
-apiInput.value = API_BASE;
+let META_URL = resolveMetaUrl();
+apiInput.value = META_URL;
 
 apiSave.addEventListener('click', () => {
   const url = apiInput.value.trim();
   if (!url) return;
-  saveApiBase(url);
-  API_BASE = url;
+  saveMetaUrl(url);
+  META_URL = url;
   bootstrap();
 });
 
@@ -29,15 +29,20 @@ window.addEventListener('DOMContentLoaded', bootstrap);
 
 async function bootstrap(){
   try{
-    // Metadata
-    const meta = await fetchJson(`${API_BASE.replace(/\/$/,'')}/metadata`);
+    // Metadata (from explicit META_URL)
+    const meta = await fetchJson(META_URL);
     renderProfile(meta);
   }catch(err){
     console.error('Error metadata', err);
   }
   try{
-    // Notes list (array de URLs)
-    const notes = await fetchJson(`${API_BASE.replace(/\/$/,'')}/notes`);
+    // Notes list: prefer meta.fileList.url; fallback to origin/notes
+    const meta = await fetchJson(META_URL).catch(()=>null);
+    const origin = deriveBaseFromMeta(META_URL);
+    const endpoint = (meta && meta.fileList && meta.fileList.url)
+      ? new URL(meta.fileList.url, META_URL).toString()
+      : new URL('/notes', origin).toString();
+    const notes = await fetchJson(endpoint);
     renderNotes(notes);
   }catch(err){
     console.error('Error notes', err);
