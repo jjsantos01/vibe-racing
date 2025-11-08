@@ -32,6 +32,11 @@ Endpoints
 - `GET /notes/{slug}.md` → contenido del archivo Markdown original (incluye frontmatter).
 - Compat: `GET /notes/{slug}` también sirve el Markdown.
 
+Proxy (CORS)
+------------
+
+- `GET /proxy?url={URL}` → recupera contenido de otros dominios (JSON o Markdown) y lo devuelve con su `Content-Type`. Restringe a `http/https` y bloquea hosts privados/localhost.
+
 Frontend
 --------
 

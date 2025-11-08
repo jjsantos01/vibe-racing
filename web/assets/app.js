@@ -168,12 +168,29 @@ function displayName(u){
 }
 
 async function fetchJson(url){
-  const res = await fetch(url, { headers: { 'Accept':'application/json' } });
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  return res.json();
+  try{
+    const res = await fetch(url, { headers: { 'Accept':'application/json' } });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    return await res.json();
+  }catch(err){
+    // Fallback via local proxy to bypass CORS
+    const prox = new URL('/proxy', location.origin);
+    prox.searchParams.set('url', url);
+    const res2 = await fetch(prox, { headers: { 'Accept':'application/json' } });
+    if (!res2.ok) throw new Error(`Proxy HTTP ${res2.status}`);
+    return await res2.json();
+  }
 }
 async function fetchText(url){
-  const res = await fetch(url, { headers: { 'Accept':'text/plain' } });
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  return res.text();
+  try{
+    const res = await fetch(url, { headers: { 'Accept':'text/plain' } });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    return await res.text();
+  }catch(err){
+    const prox = new URL('/proxy', location.origin);
+    prox.searchParams.set('url', url);
+    const res2 = await fetch(prox, { headers: { 'Accept':'text/plain' } });
+    if (!res2.ok) throw new Error(`Proxy HTTP ${res2.status}`);
+    return await res2.text();
+  }
 }
