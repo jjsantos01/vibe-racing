@@ -5,7 +5,8 @@ from typing import List
 
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import PlainTextResponse
+from fastapi.responses import PlainTextResponse, FileResponse
+from fastapi.staticfiles import StaticFiles
 
 from pydantic import AnyHttpUrl
 
@@ -22,6 +23,21 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Static frontend mounted at /web
+import os
+
+WEB_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "web")
+if os.path.isdir(WEB_DIR):
+    app.mount("/web", StaticFiles(directory=WEB_DIR, html=True), name="web")
+
+
+@app.get("/", include_in_schema=False)
+def index_root():
+    index_path = os.path.join(WEB_DIR, "index.html")
+    if os.path.exists(index_path):
+        return FileResponse(index_path)
+    return {"message": "Dev Notes API. Frontend en /web"}
 
 
 @app.get("/health")
@@ -71,6 +87,9 @@ def list_notes(request: Request) -> List[AnyHttpUrl]:
 
 @app.get("/notes/{slug}", response_class=PlainTextResponse)
 def get_note(slug: str):
+    # Allow slugs that include the .md extension
+    if slug.endswith(".md"):
+        slug = slug[:-3]
     note = load_note(slug)
     if note is None:
         raise HTTPException(status_code=404, detail="Note not found")

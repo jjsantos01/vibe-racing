@@ -32,6 +32,21 @@ Endpoints
 - `GET /notes/{slug}.md` → contenido del archivo Markdown original (incluye frontmatter).
 - Compat: `GET /notes/{slug}` también sirve el Markdown.
 
+Frontend
+--------
+
+- Disponible en `/web` (archivos en `web/`).
+- Configura la URL del API de cualquier dev de tres maneras:
+  - Query param: `?api=https://api.ejemplo.dev`
+  - Variable global antes de `app.js`: `window.DEV_NOTES_API = 'https://api.ejemplo.dev'`
+  - Guardar desde la UI (se persiste en `localStorage`).
+
+Desplegar
+---------
+
+- Render Start Command: `uvicorn app.main:app --host 0.0.0.0 --port $PORT --proxy-headers`
+- Build Command: `pip install -r requirements.txt`
+
 Notas
 -----
 

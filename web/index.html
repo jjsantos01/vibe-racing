@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dev Notes — Vibe Racing</title>
+    <link rel="stylesheet" href="assets/style.css" />
+    <meta name="theme-color" content="#0ff" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">&lt;/&gt; Dev Notes</div>
+      <div class="api-config">
+        <input id="apiInput" placeholder="https://tu-api.dev" />
+        <button id="apiSave">Conectar</button>
+      </div>
+    </header>
+
+    <main class="layout">
+      <aside class="sidebar">
+        <section class="profile" id="profile">
+          <div class="avatar" id="avatar"></div>
+          <h1 id="name">—</h1>
+          <ul class="contacts" id="contacts"></ul>
+        </section>
+        <section class="meta">
+          <div><span class="k">version</span>: <span id="version">—</span></div>
+          <div><span class="k">fileList</span>: <code id="fileListUrl">—</code></div>
+        </section>
+      </aside>
+
+      <section class="content">
+        <div class="notes">
+          <h2>Notas</h2>
+          <ul id="notesList" class="notes-list"></ul>
+        </div>
+        <article class="note-view" id="noteView">
+          <div class="note-toolbar">
+            <span id="noteTitle">Selecciona una nota…</span>
+            <a id="openRaw" href="#" target="_blank" rel="noopener">raw</a>
+          </div>
+          <div id="noteContent" class="markdown"></div>
+        </article>
+      </section>
+    </main>
+
+    <script>
+      // Opción de variable de entorno global
+      // window.DEV_NOTES_API = 'https://tu-api';
+    </script>
+    <script type="module" src="assets/app.js"></script>
+  </body>
+  </html>
+
