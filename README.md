@@ -28,12 +28,12 @@ Endpoints
 ---------
 
 - `GET /metadata` → objeto JSON con datos del perfil y `fileList.url` apuntando a `/notes`.
-- `GET /notes` → lista tipada de notas (slug, title, date, tags, summary).
-- `GET /notes/{slug}` → contenido del archivo Markdown original (incluye frontmatter).
+- `GET /notes` → array de URLs absolutas a cada nota Markdown (terminadas en `.md`).
+- `GET /notes/{slug}.md` → contenido del archivo Markdown original (incluye frontmatter).
+- Compat: `GET /notes/{slug}` también sirve el Markdown.
 
 Notas
 -----
 
 - El parser de frontmatter es ligero (sin dependencias) y soporta `tags: [a, b]` y fechas ISO-8601 (normaliza `Z`).
 - Los borradores (`draft: true`) se omiten en `/notes`.
-
