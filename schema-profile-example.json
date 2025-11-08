@@ -1,0 +1,30 @@
+{
+  "version": "1.0.0",
+  "profile": {
+    "name": "María González",
+    "avatar": "https://avatars.githubusercontent.com/mariagonzalez",
+    "contact": {
+      "github": "mariagonzalez",
+      "linkedin": "https://linkedin.com/in/mariagonzalez",
+      "email": "maria@example.com",
+      "twitter": "@mariagonzalez",
+      "website": "https://mariagonzalez.dev",
+      "other": [
+        {
+          "platform": "YouTube",
+          "url": "https://youtube.com/@mariagonzalez",
+          "label": "Mi canal de tech"
+        },
+        {
+          "platform": "Dev.to",
+          "url": "https://dev.to/mariagonzalez"
+        }
+      ]
+    }
+  },
+  "fileList": {
+    "url": "https://api.example.com/users/maria/files.json",
+    "format": "json",
+    "lastUpdated": "2025-11-08T15:45:30Z"
+  }
+}

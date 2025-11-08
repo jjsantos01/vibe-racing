@@ -1,0 +1,113 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "User Profile Metadata",
+  "type": "object",
+  "required": ["version", "profile", "fileList"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "description": "Versión del esquema de metadata",
+      "example": "1.0.0"
+    },
+    "profile": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Nombre completo del usuario",
+          "minLength": 1,
+          "example": "Juan Pérez"
+        },
+        "avatar": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL de la imagen de avatar del usuario",
+          "example": "https://example.com/avatar.jpg"
+        },
+        "contact": {
+          "type": "object",
+          "properties": {
+            "github": {
+              "type": "string",
+              "description": "Username de GitHub",
+              "example": "juanperez"
+            },
+            "linkedin": {
+              "type": "string",
+              "description": "URL o username de LinkedIn",
+              "example": "https://linkedin.com/in/juanperez"
+            },
+            "email": {
+              "type": "string",
+              "format": "email",
+              "description": "Correo electrónico de contacto",
+              "example": "juan@example.com"
+            },
+            "twitter": {
+              "type": "string",
+              "description": "Handle de Twitter/X",
+              "example": "@juanperez"
+            },
+            "website": {
+              "type": "string",
+              "format": "uri",
+              "description": "Sitio web personal",
+              "example": "https://juanperez.dev"
+            },
+            "other": {
+              "type": "array",
+              "description": "Otros enlaces de perfil adicionales",
+              "items": {
+                "type": "object",
+                "required": ["platform", "url"],
+                "properties": {
+                  "platform": {
+                    "type": "string",
+                    "description": "Nombre de la plataforma",
+                    "example": "Medium"
+                  },
+                  "url": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "URL del perfil",
+                    "example": "https://medium.com/@juanperez"
+                  },
+                  "label": {
+                    "type": "string",
+                    "description": "Etiqueta personalizada para mostrar",
+                    "example": "Mi Blog"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "fileList": {
+      "type": "object",
+      "required": ["url"],
+      "properties": {
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL donde se encuentra el archivo con la lista de archivos",
+          "example": "https://example.com/api/files.json"
+        },
+        "format": {
+          "type": "string",
+          "enum": ["json", "xml", "csv"],
+          "description": "Formato del archivo de lista",
+          "default": "json"
+        },
+        "lastUpdated": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Fecha y hora de última actualización",
+          "example": "2025-11-08T10:30:00Z"
+        }
+      }
+    }
+  }
+}
